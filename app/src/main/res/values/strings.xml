@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">IndoCinemax</string>
+    <string name="none" />
+    <string name="title_content">Title Content</string>
+    <string name="title_content_detail">TITLE</string>
+    <string name="duration_content_detail">Duration : </string>
+    <string name="genre_content_detail">Genre : </string>
+    <string name="synopsis_content_detail">Synopsis : </string>
+    <string name="synopsis_content_detail_ex">-</string>
+    <string name="top">Coming Soon</string>
+    <string name="popular">Popular</string>
+    <string name="popular_movie">Popular Movie</string>
+    <string name="top_rated_movie">Top Rated Movie</string>
+    <string name="now_playing">Now Playing</string>
+    <string name="about">About</string>
+    <string name="release">Release : </string>
+    <string name="rate">Rated :</string>
+    <string name="coming_soon">Coming Soon</string>
+    <string name="connection_problem">Something Error...</string>
+    <string name="cancel">Cancel</string>
+    <string name="refresh">Refresh</string>
+    <string name="trailler">Trailler</string>
+    <string name="pressCancel">Press Button Cancel</string>
+    <string name="error_trailler">Something error...</string>
+    <string name="players_content_detail">Players :</string>
+    <string name="favorite">Favorite</string>
+    <string name="no_favorite">You Have No Favorite</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
