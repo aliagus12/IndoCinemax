@@ -9,7 +9,7 @@ class StringSource {
     companion object {
         private const val BASE_URL = "https://api.themoviedb.org/3/"
         const val BASE_GET_MOVIE = BASE_URL + "movie/"
-        private const val API_KEY = "api_key=e685a7fe7a4fe13cbd60d0d7432ad5b0"
+        private const val API_KEY = "api_key="
         const val GET_ALL_GENRES = BASE_URL + "genre/movie/list?" + API_KEY + "&language=en-In"
         const val GET_NOW_PLAYING_MOVIE = BASE_URL + "movie/now_playing?" + API_KEY + "&language=en-ID&page=1&region=ID"
         const val GET_POPULAR_MOVIE = BASE_URL + "discover/movie?" + API_KEY +
