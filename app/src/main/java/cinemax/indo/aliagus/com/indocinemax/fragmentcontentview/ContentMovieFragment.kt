@@ -24,8 +24,8 @@ import kotlinx.android.synthetic.main.fragment_movie_content.*
 class ContentMovieFragment : Fragment(), ContentMovieFragmentContract.View, AdapterContentMovie.ListenerAdapterContentMovie {
 
     var viewRoot: View? = null
-    private lateinit var urlData: String
-    private lateinit var filter: String
+    private var urlData: String? = null
+    private var filter: String? = null
     private var isFirstOpen: Boolean = false
     private lateinit var pDialog: SpotsDialog
     private lateinit var adapterContentMovie: AdapterContentMovie
@@ -43,7 +43,7 @@ class ContentMovieFragment : Fragment(), ContentMovieFragmentContract.View, Adap
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         viewRoot = inflater?.inflate(R.layout.fragment_movie_content, container, false)
         initProgressDialog()
-        contentMovieFragmentPresenter.loadData(urlData, filter)
+        urlData?.let { filter?.let { it1 -> contentMovieFragmentPresenter.loadData(it, it1) } }
         return viewRoot
     }
 
@@ -98,7 +98,7 @@ class ContentMovieFragment : Fragment(), ContentMovieFragmentContract.View, Adap
         }
         checkMovieList(listMovie)
         adapterContentMovie = AdapterContentMovie(context, listMovie, listType, this)
-        adapterContentMovie.setFilter(filter)
+        filter?.let { adapterContentMovie.setFilter(it) }
         recycler_now_playing.setHasFixedSize(true)
         recycler_now_playing.layoutManager = GridLayoutManager(context, colomn)
         recycler_now_playing.adapter = adapterContentMovie
@@ -141,18 +141,22 @@ class ContentMovieFragment : Fragment(), ContentMovieFragmentContract.View, Adap
     }
 
     override fun onImageFavoriteRedNotFull(view: View) {
-        contentMovieFragmentPresenter.saveOrRemoveMovieToFavorite(
+        filter?.let {
+            contentMovieFragmentPresenter.saveOrRemoveMovieToFavorite(
                 view,
                 ADD_MOVIE,
-                filter
+                    it
         )
+        }
     }
 
     override fun onImageFavoriteRedFull(view: View) {
-        contentMovieFragmentPresenter.saveOrRemoveMovieToFavorite(
+        filter?.let {
+            contentMovieFragmentPresenter.saveOrRemoveMovieToFavorite(
                 view,
                 REMOVE_MOVIE,
-                filter)
+                    it)
+        }
     }
 
     override fun onStop() {

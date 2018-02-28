@@ -7,28 +7,28 @@ import java.util.*
  */
 class StringSource {
     companion object {
-        val BASE_URL = "https://api.themoviedb.org/3/"
-        val BASE_GET_MOVIE = BASE_URL + "movie/"
-        val API_KEY = "api_key="
-        val GET_ALL_GENRES = BASE_URL + "genre/movie/list?" + API_KEY + "&language=en-In"
-        val GET_NOW_PLAYING_MOVIE = BASE_URL + "movie/now_playing?" + API_KEY + "&language=en-ID&page=1&region=ID"
-        val GET_POPULAR_MOVIE = BASE_URL + "discover/movie?" + API_KEY +
+        private const val BASE_URL = "https://api.themoviedb.org/3/"
+        const val BASE_GET_MOVIE = BASE_URL + "movie/"
+        private const val API_KEY = "api_key=e685a7fe7a4fe13cbd60d0d7432ad5b0"
+        const val GET_ALL_GENRES = BASE_URL + "genre/movie/list?" + API_KEY + "&language=en-In"
+        const val GET_NOW_PLAYING_MOVIE = BASE_URL + "movie/now_playing?" + API_KEY + "&language=en-ID&page=1&region=ID"
+        const val GET_POPULAR_MOVIE = BASE_URL + "discover/movie?" + API_KEY +
                 "&language=en-US&region=ID&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&year=2018"
-        val GET_COMING_SOON_MOVIE = BASE_URL + "movie/upcoming?" + API_KEY + "&language=en-US&page=1&region=ID%7CUS"
-        val GET_TRAILLER = "/videos?$API_KEY&language=en-US"
-        val GET_ALL_PLAYERS = "/credits?" + API_KEY
-        val GET_DETAIL = "?" + API_KEY
-        val GET_IMAGE_MOVIE = "https://image.tmdb.org/t/p/"
-        val SIZE_IMAGE_ADAPTER = "w300"
-        val SIZE_IMAGE_DETAIL = "w500"
+        const val GET_COMING_SOON_MOVIE = BASE_URL + "movie/upcoming?" + API_KEY + "&language=en-US&page=1&region=ID%7CUS"
+        const val GET_TRAILLER = "/videos?$API_KEY&language=en-US"
+        const val GET_ALL_PLAYERS = "/credits?" + API_KEY
+        const val GET_DETAIL = "?" + API_KEY
+        const val GET_IMAGE_MOVIE = "https://image.tmdb.org/t/p/"
+        const val SIZE_IMAGE_ADAPTER = "w300"
+        const val SIZE_IMAGE_DETAIL = "w500"
 
-        val LAST_UPDATE = "lastUpdate"
-        val DURATION = "duration"
+        const val LAST_UPDATE = "lastUpdate"
+        const val DURATION = "duration"
 
         //keyValue
-        val TABLE_KEY_VALUE = "_kv"
-        val COL_KEY = "_key"
-        val COL_VALUE = "_value"
+        const val TABLE_KEY_VALUE = "_kv"
+        const val COL_KEY = "_key"
+        const val COL_VALUE = "_value"
 
         val colomnKeyValue = arrayOf(TABLE_KEY_VALUE, COL_KEY, COL_VALUE)
 
@@ -41,16 +41,16 @@ class StringSource {
                 " TEXT"
                 + ")")
         //movie
-        val TABLE_MOVIE = "_npl"
-        val COL_NO = "_no"
-        val COL_ID = "_id"
-        val COL_TITLE = "_title"
-        val COL_VOTE_AVERAGE = "_voteAverage"
-        val COL_POPULARITY = "_popularity"
-        val COL_OVERVIEW = "_overView"
-        val COL_POSTER_PATH = "_posterPath"
-        val COL_RELEASE_DATE = "_releaseDate"
-        val COL_GENRES = "_genres"
+        const val TABLE_MOVIE = "_npl"
+        private const val COL_NO = "_no"
+        private const val COL_ID = "_id"
+        private const val COL_TITLE = "_title"
+        private const val COL_VOTE_AVERAGE = "_voteAverage"
+        private const val COL_POPULARITY = "_popularity"
+        private const val COL_OVERVIEW = "_overView"
+        private const val COL_POSTER_PATH = "_posterPath"
+        private const val COL_RELEASE_DATE = "_releaseDate"
+        private const val COL_GENRES = "_genres"
 
         val colomnMovieNowPlaying = arrayOf(
                 TABLE_MOVIE,
@@ -88,7 +88,7 @@ class StringSource {
                 + ")")
 
         //popular
-        val TABLE_POPULAR = "_mpo"
+        const val TABLE_POPULAR = "_mpo"
         val colomnMoviePopular = arrayOf(
                 TABLE_POPULAR,
                 COL_NO,
@@ -125,7 +125,7 @@ class StringSource {
                 + ")")
 
         //comingsoon
-        val TABLE_COMING_SOON = "_cms"
+        const val TABLE_COMING_SOON = "_cms"
         val colomnMovieComingSoon = arrayOf(
                 TABLE_COMING_SOON,
                 COL_NO,
@@ -162,7 +162,7 @@ class StringSource {
                 + ")")
 
         //favorite
-        val TABLE_FAVORITE = "_fvr"
+        const val TABLE_FAVORITE = "_fvr"
         val colomnFavorites = arrayOf(
                 TABLE_FAVORITE,
                 COL_NO,
@@ -199,9 +199,9 @@ class StringSource {
                 + ")")
 
         //genres
-        val COL_NAME = "_name"
-        val TABLE_GENRES = "_genres"
-        val COL_ID_GENRE = "_id"
+        private const val COL_NAME = "_name"
+        const val TABLE_GENRES = "_genres"
+        private const val COL_ID_GENRE = "_id"
         val colomnGenres = arrayOf(TABLE_GENRES, COL_ID_GENRE, COL_NAME)
 
         val CREATE_TABLE_GENRES = ("CREATE TABLE IF NOT EXISTS "
