@@ -3,6 +3,7 @@ package cinemax.indo.aliagus.com.indocinemax.fragmentcontentview
 import android.content.Context
 import android.util.Log
 import android.view.View
+import cinemax.indo.aliagus.com.indocinemax.R
 import cinemax.indo.aliagus.com.indocinemax.model.Movie
 import cinemax.indo.aliagus.com.indocinemax.utils.ProviderObservables
 import io.reactivex.Observable
@@ -33,8 +34,8 @@ class ContentMovieFragmentPresenter(
 
                     override fun onNext(map: HashMap<String, Any>) {
                         view.loadDataToAdapter(
-                                map["listMovie"] as List<Movie>?,
-                                map["listType"] as List<Int>?,
+                                map["listMovie"] as MutableList<Movie>?,
+                                map["listType"] as MutableList<Int>?,
                                 map["message"] as String?
                         )
                     }
@@ -52,6 +53,7 @@ class ContentMovieFragmentPresenter(
 
     override fun saveOrRemoveMovieToFavorite(view1: View, movieCode: Int, filter: String) {
         val movie = view1.tag as Movie
+        val position = view1.getTag(R.integer.key_position) as Int
         val observable = providerObservables.saveMovieToFavoriteDatabase(movie, movieCode, filter)
         observable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -61,10 +63,13 @@ class ContentMovieFragmentPresenter(
                     }
 
                     override fun onNext(map: HashMap<String, Any>) {
-                        view.refreshAdapter(
-                                map["listMovie"] as List<Movie>,
-                                map["listType"] as List<Int>
-                        )
+                        if (filter == "favorite") {
+                            view.refreshAdapter(
+                                    map["listMovie"] as MutableList<Movie>,
+                                    map["listType"] as MutableList<Int>,
+                                    position
+                            )
+                        }
                     }
 
                     override fun onError(e: Throwable) {

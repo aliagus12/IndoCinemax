@@ -7,9 +7,9 @@ import cinemax.indo.aliagus.com.indocinemax.model.Movie
  */
 interface ContentMovieFragmentContract {
     interface View {
-        fun loadDataToAdapter(listMovie: List<Movie>?, listType: List<Int>?, message: String?)
+        fun loadDataToAdapter(listMovie: MutableList<Movie>?, listType: MutableList<Int>?, message: String?)
         fun showToastFragment(message: String?)
-        fun refreshAdapter(listMovie: List<Movie>, listTypes: List<Int>)
+        fun refreshAdapter(listMovie: MutableList<Movie>, listTypes: MutableList<Int>, position: Int)
     }
 
     interface Presenter {

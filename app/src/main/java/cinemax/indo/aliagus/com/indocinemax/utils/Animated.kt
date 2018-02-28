@@ -39,7 +39,7 @@ object Animated {
     }
 
     fun animatedView(view: View,
-                     mListener: AdapterContentMovie.ListenerAdapterContentMovie
+                     adapterContentMovie: AdapterContentMovie
     ) {
         view.animate()
                 .translationY(view.height.toFloat())
@@ -49,7 +49,7 @@ object Animated {
                     override fun onAnimationEnd(animation: Animator) {
                         super.onAnimationEnd(animation)
                         view.visibility = View.GONE
-                        mListener.onImageFavoriteWhiteFull(view)
+                        adapterContentMovie.notifyDataSetChanged()
                     }
                 })
     }

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/dimen_ten">
+
+    <RelativeLayout
+        android:id="@+id/relatif_layout_image_content"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/linear_image_content_new">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/image_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="@integer/weight_one"
+                android:padding="1dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="@integer/weight_one"
+                android:background="@drawable/background_textview"
+                android:orientation="vertical"
+                >
+
+                <TextView
+                    android:id="@+id/title_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/fourty"
+                    android:gravity="center"
+                    android:hint="@string/title_content"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/fourteen"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/image_favorite_red_not_full"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_twenty"
+                    android:src="@drawable/ic_favorite_red_not_full24dp" />
+
+                <ImageView
+                    android:id="@+id/image_favorite_red_full"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_twenty"
+                    android:src="@drawable/ic_favorite_red_full_24dp"
+                    android:visibility="gone" />
+            </LinearLayout>
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+</android.support.constraint.ConstraintLayout>

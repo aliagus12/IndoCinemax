@@ -50,6 +50,7 @@ class MainActivity : AppCompatActivity(), MainActivityContract.View {
 
     override fun onResume() {
         super.onResume()
+        hideNavigationBar()
         checkAllPermission()
     }
 

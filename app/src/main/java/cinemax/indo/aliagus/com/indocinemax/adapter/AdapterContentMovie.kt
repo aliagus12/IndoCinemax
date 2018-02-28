@@ -21,14 +21,22 @@ import com.bumptech.glide.load.model.LazyHeaders
  * Created by ali on 26/02/18.
  */
 class AdapterContentMovie(
-        private var movieList: List<Movie>?,
-        private var listTypes: List<Int>?,
+        private var context: Context,
+        private var movieList: MutableList<Movie>?,
+        private var listTypes: MutableList<Int>?,
         private val mListener: ListenerAdapterContentMovie
 ) : RecyclerView.Adapter<AdapterContentMovie.ViewHolder>(), View.OnClickListener {
-    private var view: View? = null
-    private var context: Context? = null
     private var filter: String? = null
     private var viewHolderContent: ViewHolderContent? = null
+
+    companion object {
+        private val TAG = AdapterContentMovie::class.java.simpleName
+        const val MOVIE_CONTENT = 1
+        const val LOADING_CONTENT = 2
+    }
+    val databaseManagerHelper = context?.let {
+        DatabaseManagerHelper.getInstance(it)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent?.context)
@@ -76,62 +84,61 @@ class AdapterContentMovie(
         mListener.onHolderClick(view)
     }
 
-    fun refresh(listMovie: List<Movie>, listTypes: List<Int>) {
+    fun refresh(
+            listMovie: MutableList<Movie>,
+            listTypes: MutableList<Int>,
+            position: Int
+    ) {
+        notifyItemRemoved(position)
         this.movieList = listMovie
         this.listTypes = listTypes
-        notifyDataSetChanged()
     }
 
     fun refreshPosition(position: Int?) {
         notifyItemChanged(position!!)
     }
 
-    fun setFilter(filter: String) {
-        this.filter = filter
+    fun refreshAllFavorite() {
+        var movieList = databaseManagerHelper?.getAllMovieFromDatabase(StringSource.colomnFavorites) as MutableList<Movie>
+        val listTypes= ArrayList<Int>()
+        for (a in this.movieList!!.indices) {
+            listTypes.add(MOVIE_CONTENT)
+        }
+        this.movieList = movieList
+        this.listTypes = listTypes
+        notifyDataSetChanged()
     }
 
-    fun removeMovie(position: Int) {
-        listTypes!!.drop(position)
-        movieList!!.drop(position)
-        notifyItemRemoved(position)
+    fun setFilter(filter: String) {
+        this.filter = filter
     }
 
     open inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
     inner class ViewHolderContent(itemView: View) : ViewHolder(itemView), View.OnClickListener {
-        private val mImageFavoriteWhiteNotFull: ImageView
-        private val mImageFavoriteWhiteFull: ImageView
-        private val mImageContent: ImageView
-        private val mTitleContent: TextView
-
-        init {
-            mImageContent = itemView.findViewById<View>(R.id.image_content) as ImageView
-            mTitleContent = itemView.findViewById<View>(R.id.title_content) as TextView
-            mImageFavoriteWhiteNotFull = itemView.findViewById<View>(R.id.image_favorite_white_not_full) as ImageView
-            mImageFavoriteWhiteFull = itemView.findViewById<View>(R.id.image_favorite_white_full) as ImageView
-        }
+        private val mImageFavoriteRedNotFull: ImageView = itemView.findViewById<View>(R.id.image_favorite_red_not_full) as ImageView
+        private val mImageFavoriteRedFull: ImageView = itemView.findViewById<View>(R.id.image_favorite_red_full) as ImageView
+        private val mImageContent: ImageView = itemView.findViewById<View>(R.id.image_content) as ImageView
+        private val mTitleContent: TextView = itemView.findViewById<View>(R.id.title_content) as TextView
 
         fun bind(movie: Movie) {
-            val databaseManagerHelper = context?.let {
-                DatabaseManagerHelper.getInstance(it)
-            }
             val listId = databaseManagerHelper?.getListId(StringSource.colomnFavorites)
             if (listId!!.contains(movie.id)) {
-                mImageFavoriteWhiteNotFull.visibility = View.GONE
-                mImageFavoriteWhiteFull.visibility = View.VISIBLE
+                mImageFavoriteRedNotFull.visibility = View.GONE
+                mImageFavoriteRedFull.visibility = View.VISIBLE
             } else {
-                mImageFavoriteWhiteFull.visibility = View.GONE
-                mImageFavoriteWhiteNotFull.visibility = View.VISIBLE
+                mImageFavoriteRedFull.visibility = View.GONE
+                mImageFavoriteRedNotFull.visibility = View.VISIBLE
             }
             val image = movie.posterPath
             val urlImage = StringSource.GET_IMAGE_MOVIE + StringSource.SIZE_IMAGE_ADAPTER + image
             val title = movie.title
-            mImageFavoriteWhiteNotFull.tag = movie
-            mImageFavoriteWhiteNotFull.setTag(R.integer.key_position, adapterPosition)
-            mImageFavoriteWhiteFull.tag = movie
-            mImageFavoriteWhiteFull.setTag(R.integer.key_position, adapterPosition)
-            mImageFavoriteWhiteNotFull.setOnClickListener(this)
-            mImageFavoriteWhiteFull.setOnClickListener(this)
+            mImageFavoriteRedNotFull.tag = movie
+            mImageFavoriteRedFull.tag = movie
+            mImageFavoriteRedNotFull.setTag(R.integer.key_position, adapterPosition)
+            mImageFavoriteRedFull.setTag(R.integer.key_position, adapterPosition)
+            mImageFavoriteRedNotFull.setOnClickListener(this)
+            mImageFavoriteRedFull.setOnClickListener(this)
             mTitleContent.text = title
             mImageContent.scaleType = ImageView.ScaleType.FIT_XY
             val glideUrlPhotoProfile = GlideUrl(
@@ -148,19 +155,19 @@ class AdapterContentMovie(
 
         override fun onClick(view: View) {
             when (view.id) {
-                R.id.image_favorite_white_not_full -> if (filter != "favorite") {
-                    Animated.animatedView(mImageFavoriteWhiteFull, VISIBLE)
-                    Animated.animatedView(view, GONE)
-                    mListener.onImageFavoriteWhiteNotFull(view)
+                R.id.image_favorite_red_not_full -> if (filter != "favorite") {
+                    mImageFavoriteRedFull.visibility = View.VISIBLE
+                    view.visibility = View.GONE
+                    mListener.onImageFavoriteRedNotFull(view)
                 }
 
-                R.id.image_favorite_white_full -> if (filter == "favorite") {
-                    Animated.animatedView(view, mListener)
-                    removeMovie(adapterPosition)
+                R.id.image_favorite_red_full -> if (filter == "favorite") {
+                    mListener.onImageFavoriteRedFull(view)
+                    Animated.animatedView(view, this@AdapterContentMovie)
                 } else {
-                    Animated.animatedView(mImageFavoriteWhiteNotFull, VISIBLE)
-                    Animated.animatedView(view, GONE)
-                    mListener.onImageFavoriteWhiteFull(view)
+                    mImageFavoriteRedNotFull.visibility = View.VISIBLE
+                    view.visibility = View.GONE
+                    mListener.onImageFavoriteRedFull(view)
                 }
             }
         }
@@ -171,16 +178,9 @@ class AdapterContentMovie(
     interface ListenerAdapterContentMovie {
         fun onHolderClick(view: View)
 
-        fun onImageFavoriteWhiteNotFull(view: View)
+        fun onImageFavoriteRedNotFull(view: View)
 
-        fun onImageFavoriteWhiteFull(view: View)
+        fun onImageFavoriteRedFull(view: View)
     }
 
-    companion object {
-        private val TAG = AdapterContentMovie::class.java.simpleName
-        const val MOVIE_CONTENT = 1
-        const val LOADING_CONTENT = 2
-        const val VISIBLE = 1
-        const val GONE = 2
-    }
 }

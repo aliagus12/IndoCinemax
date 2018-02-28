@@ -21,9 +21,9 @@ import kotlinx.android.synthetic.main.fragment_movie_content.*
 /**
  * Created by ali on 24/02/18.
  */
-class ContentMovieFragment : Fragment(), ContentMovieFragmentContract.View, AdapterContentMovie.ListenerAdapterContentMovie{
+class ContentMovieFragment : Fragment(), ContentMovieFragmentContract.View, AdapterContentMovie.ListenerAdapterContentMovie {
 
-    var viewRoot : View? = null
+    var viewRoot: View? = null
     private lateinit var urlData: String
     private lateinit var filter: String
     private var isFirstOpen: Boolean = false
@@ -34,6 +34,7 @@ class ContentMovieFragment : Fragment(), ContentMovieFragmentContract.View, Adap
     private val TAG = ContentMovieFragment::class.java.simpleName
     private val ADD_MOVIE = 1
     private val REMOVE_MOVIE = 2
+    private var animationOut: Animation? = null
     private val contentMovieFragmentPresenter: ContentMovieFragmentPresenter by lazy {
         ContentMovieFragmentPresenter(this, context)
     }
@@ -52,6 +53,7 @@ class ContentMovieFragment : Fragment(), ContentMovieFragmentContract.View, Adap
         pDialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         pDialog.show()
     }
+
     fun setUrlData(urlData: String) {
         this.urlData = urlData
     }
@@ -65,33 +67,48 @@ class ContentMovieFragment : Fragment(), ContentMovieFragmentContract.View, Adap
     }
 
     fun refreshAdapterPosition(position: Int?) {
-        adapterContentMovie.refreshPosition(position)
+        if (filter == "favorite") {
+            adapterContentMovie.refreshAllFavorite()
+        } else {
+            adapterContentMovie.refreshPosition(position)
+        }
     }
 
-    override fun refreshAdapter(listMovie: List<Movie>, listTypes: List<Int>) {
+    override fun refreshAdapter(
+            listMovie: MutableList<Movie>,
+            listTypes: MutableList<Int>,
+            position: Int
+    ) {
         checkMovieList(listMovie)
-        adapterContentMovie.refresh(listMovie, listTypes)
+        adapterContentMovie.refresh(
+                listMovie,
+                listTypes,
+                position
+        )
     }
 
-    override fun loadDataToAdapter(listMovie: List<Movie>?, listType: List<Int>?, message: String?) {
+    override fun loadDataToAdapter(
+            listMovie: MutableList<Movie>?,
+            listType: MutableList<Int>?,
+            message: String?
+    ) {
         val colomn = 2
         if (message != "") {
             showToastFragment(message)
         }
         checkMovieList(listMovie)
-        adapterContentMovie = AdapterContentMovie(listMovie, listType, this)
-        adapterContentMovie.setContext(context)
+        adapterContentMovie = AdapterContentMovie(context, listMovie, listType, this)
         adapterContentMovie.setFilter(filter)
         recycler_now_playing.setHasFixedSize(true)
         recycler_now_playing.layoutManager = GridLayoutManager(context, colomn)
         recycler_now_playing.adapter = adapterContentMovie
         animationIn = AnimationUtils.loadAnimation(context, android.R.anim.slide_in_left)
-        animationIn?.duration = 1000
+        animationIn?.duration = 300
         recycler_now_playing.startAnimation(animationIn)
         checkProgressDialog()
     }
 
-    private fun checkMovieList(listMovie: List<Movie>?) {
+    private fun checkMovieList(listMovie: MutableList<Movie>?) {
         if (listMovie!!.isEmpty()) {
             fragment_content_movie_logo.visibility = View.VISIBLE
         } else {
@@ -123,7 +140,7 @@ class ContentMovieFragment : Fragment(), ContentMovieFragmentContract.View, Adap
         )
     }
 
-    override fun onImageFavoriteWhiteNotFull(view: View){
+    override fun onImageFavoriteRedNotFull(view: View) {
         contentMovieFragmentPresenter.saveOrRemoveMovieToFavorite(
                 view,
                 ADD_MOVIE,
@@ -131,10 +148,17 @@ class ContentMovieFragment : Fragment(), ContentMovieFragmentContract.View, Adap
         )
     }
 
-    override fun onImageFavoriteWhiteFull(view: View) {
+    override fun onImageFavoriteRedFull(view: View) {
         contentMovieFragmentPresenter.saveOrRemoveMovieToFavorite(
                 view,
                 REMOVE_MOVIE,
                 filter)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        animationOut = AnimationUtils.loadAnimation(context, android.R.anim.slide_out_right)
+        animationOut?.duration = 300
+        recycler_now_playing.startAnimation(animationOut)
     }
 }

@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/container_about"
     android:padding="@dimen/dimen_five"
-    android:background="@color/gray_old">
+    >
 
         <ImageView
             android:layout_width="@dimen/one_zero_zero"
@@ -29,7 +29,6 @@
             android:fontFamily="serif-monospace"
             android:textSize="@dimen/dimen_twenty"
             android:id="@+id/app_name"
-            android:textColor="@color/white"
             app:layout_constraintTop_toBottomOf="@id/logo"
             app:layout_constraintRight_toLeftOf="parent"
             app:layout_constraintLeft_toRightOf="parent"

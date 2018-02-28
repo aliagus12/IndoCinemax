@@ -53,6 +53,7 @@ class DetailFragment : BottomSheetDialogFragment(), DetailFragmentContract.View,
     private lateinit var players: String
     private lateinit var progressBarImageLoading: ProgressBar
     private var position: Int = 0
+    private lateinit var viewFrom: View
 
     override fun setupDialog(dialog: Dialog, style: Int) {
         viewRoot = View.inflate(context, R.layout.fragment_detail_layout, null)
@@ -148,6 +149,7 @@ class DetailFragment : BottomSheetDialogFragment(), DetailFragmentContract.View,
     }
 
     fun setMovie(view: View) {
+        this.viewFrom = view
         this.movie = view.tag as Movie
         this.position = view.getTag(R.integer.key_position) as Int
     }

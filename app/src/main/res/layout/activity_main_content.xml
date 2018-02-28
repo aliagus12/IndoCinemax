@@ -18,7 +18,6 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:layout_gravity="bottom"
-        android:background="#323232"
         app:itemIconTint="@drawable/background_item_bottom_navigation_view"
         app:itemTextColor="@drawable/background_item_bottom_navigation_view"
         app:layout_constraintBottom_toTopOf="parent"

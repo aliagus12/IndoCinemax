@@ -20,12 +20,11 @@ class MainContentActivity : AppCompatActivity(), MainContentActivityContract.Vie
         MainContentActivityPresenter(this)
     }
 
-    var menuNavBottom: Menu? = null
-    var isFirstOpen = false
-    var isMainContent = true
+    private var isFirstOpen = false
+    private var isMainContent = true
     private lateinit var contentMovie: ContentMovieFragment
-    var toastFragment: ToastFragment? = null
-    var about: About? = null
+    private var toastFragment: ToastFragment? = null
+    private var about: About? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,13 +33,7 @@ class MainContentActivity : AppCompatActivity(), MainContentActivityContract.Vie
     }
 
     private fun initBottomNavigation() {
-        menuNavBottom = bottom_navigation_view.menu
-        bottomNavigationViowGetTreeObserver(menuNavBottom!!)
         bottom_navigation_view.setOnNavigationItemSelectedListener(this)
-    }
-
-    private fun bottomNavigationViowGetTreeObserver(menuNavBottom: Menu) {
-
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean =
@@ -90,7 +83,7 @@ class MainContentActivity : AppCompatActivity(), MainContentActivityContract.Vie
             val handler = Handler()
             handler!!.postDelayed({
                 attachFragment(urlData, filter)!!
-            }, 500)
+            }, 200)
         } else {
             attachFragment(urlData, filter)
         }
@@ -102,7 +95,7 @@ class MainContentActivity : AppCompatActivity(), MainContentActivityContract.Vie
         contentMovie.setFilter(filter)
         contentMovie.setIsFirstOpen(isFirstOpen)
         supportFragmentManager.beginTransaction()
-                .add(R.id.frame_layout_content_activity, contentMovie)
+                .replace(R.id.frame_layout_content_activity, contentMovie)
                 .commitAllowingStateLoss()
     }
 

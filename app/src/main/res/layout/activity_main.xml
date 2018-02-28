@@ -26,7 +26,6 @@
         android:fontFamily="serif-monospace"
         android:textSize="@dimen/dimen_twenty"
         android:id="@+id/app_name"
-        android:textColor="@color/black"
         app:layout_constraintTop_toBottomOf="@+id/logo"
         app:layout_constraintLeft_toRightOf="parent"
         app:layout_constraintRight_toLeftOf="parent"

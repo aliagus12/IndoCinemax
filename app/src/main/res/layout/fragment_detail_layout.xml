@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/container_detail"
-    android:background="@color/gray_old"
     >
 
     <ScrollView
@@ -62,12 +61,11 @@
                         android:textSize="@dimen/text_title_detail"
                         android:textAlignment="center"
                         android:gravity="center"
-                        android:textColor="@android:color/white"
                         android:textStyle="bold" />
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/one"
-                        android:background="@android:color/white"
+                        android:background="@android:color/darker_gray"
                         android:layout_margin="@dimen/one"
                         />
 
@@ -83,8 +81,8 @@
                             android:layout_below="@+id/title_content_detail"
                             android:text="@string/duration_content_detail"
                             android:textSize="@dimen/standart_content_detail"
-                            android:textColor="@android:color/white"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            />
 
                         <TextView
                             android:id="@+id/duration_content_detail"
@@ -92,11 +90,8 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/title_content_detail"
                             android:textSize="@dimen/standart_content_detail_text"
-                            android:textColor="@android:color/white"
                             android:textStyle="bold" />
                     </LinearLayout>
-
-
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -109,7 +104,6 @@
                             android:layout_height="wrap_content"
                             android:text="@string/genre_content_detail"
                             android:textSize="@dimen/standart_content_detail"
-                            android:textColor="@android:color/white"
                             android:textStyle="bold" />
 
                         <TextView
@@ -118,8 +112,6 @@
                             android:layout_height="wrap_content"
                             android:textSize="@dimen/standart_content_detail_text"
                             android:textStyle="bold"
-                            android:textColor="@android:color/white"
-
                             />
                     </LinearLayout>
 
@@ -134,8 +126,8 @@
                             android:layout_height="wrap_content"
                             android:text="@string/rate"
                             android:textSize="@dimen/standart_content_detail"
-                            android:textColor="@android:color/white"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            />
 
                         <TextView
                             android:id="@+id/rate_content_rate"
@@ -144,8 +136,6 @@
                             android:layout_height="wrap_content"
                             android:textSize="@dimen/standart_content_detail_text"
                             android:textStyle="bold"
-                            android:textColor="@android:color/white"
-
                             />
 
                     </LinearLayout>
@@ -161,8 +151,8 @@
                             android:layout_height="wrap_content"
                             android:text="@string/release"
                             android:textSize="@dimen/standart_content_detail"
-                            android:textColor="@android:color/white"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            />
 
                         <TextView
                             android:id="@+id/date_content_detail"
@@ -171,8 +161,6 @@
                             android:layout_height="wrap_content"
                             android:textSize="@dimen/standart_content_detail_text"
                             android:textStyle="bold"
-                            android:textColor="@android:color/white"
-
                             />
 
                     </LinearLayout>
@@ -185,7 +173,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/image_favorite_detail_not_full"
-                            android:src="@drawable/ic_favorite_white_not_full24dp"
+                            android:src="@drawable/ic_favorite_red_not_full24dp"
                             android:layout_alignParentLeft="true"
                             android:layout_alignParentTop="true"
                             />
@@ -194,7 +182,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/image_favorite_detail_full"
-                            android:src="@drawable/ic_favorite_white_full_24dp"
+                            android:src="@drawable/ic_favorite_red_full_24dp"
                             android:visibility="gone"
                             android:layout_alignParentLeft="true"
                             android:layout_alignParentTop="true"
@@ -205,7 +193,6 @@
                             android:layout_height="wrap_content"
                             android:text="@string/trailler"
                             android:textSize="@dimen/standart_content_detail_text"
-                            android:textColor="@android:color/white"
                             android:layout_centerHorizontal="true"
                             android:id="@+id/txt_trailer"
                             />
@@ -216,7 +203,7 @@
                             android:layout_below="@+id/txt_trailer"
                             android:layout_centerHorizontal="true"
                             android:background="@drawable/background_textview"
-                            android:src="@drawable/ic_play_arrow_white_24dp"
+                            android:src="@drawable/ic_play_arrow_red_24dp"
                             />
                     </RelativeLayout>
                 </LinearLayout>
@@ -227,7 +214,7 @@
                 android:id="@+id/divider_one"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/one"
-                android:background="@android:color/white"
+                android:background="@android:color/darker_gray"
                 android:layout_margin="@dimen/dimen_five"
                 />
 
@@ -237,7 +224,8 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="@dimen/dimen_five"
-                app:layout_constraintTop_toBottomOf="@+id/divider_one">
+                app:layout_constraintTop_toBottomOf="@+id/divider_one"
+                >
 
                 <TextView
                     android:layout_width="match_parent"
@@ -245,16 +233,16 @@
                     android:layout_weight="@integer/weight_one"
                     android:text="@string/players_content_detail"
                     android:textSize="@dimen/standart_content_detail"
-                    android:textColor="@android:color/white"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    />
 
                 <TextView
                     android:id="@+id/text_players_detail"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="@integer/weight_two"
-                    android:textColor="@android:color/white"
-                    android:hint="@string/synopsis_content_detail_ex" />
+                    android:hint="@string/synopsis_content_detail_ex"
+                    />
 
             </LinearLayout>
             <LinearLayout
@@ -271,16 +259,16 @@
                     android:layout_weight="@integer/weight_one"
                     android:text="@string/synopsis_content_detail"
                     android:textSize="@dimen/standart_content_detail"
-                    android:textColor="@android:color/white"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    />
 
                 <TextView
                     android:id="@+id/text_synopsis_detail"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="@integer/weight_two"
-                    android:textColor="@android:color/white"
-                    android:hint="@string/synopsis_content_detail_ex" />
+                    android:hint="@string/synopsis_content_detail_ex"
+                    />
 
             </LinearLayout>
 
